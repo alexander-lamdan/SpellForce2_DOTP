@@ -6,8 +6,8 @@
 import pathlib
 import os
 
-lua_map_name = input("Please enter the map name you need\n")
-lua_template = '''State
+map_name = input("Please enter the map name you need\n")
+state_template = '''State
 {
 	StateName = "INIT",
 
@@ -43,6 +43,16 @@ State
 
 };\n
 '''
-with open(lua_map_name + '.lua','w') as file:
-	file.write(lua_template)
-print(f'The file {lua_map_name} is created\n')
+p = 'p'
+map_dirname = p + map_name
+
+map_name_script = '_' + p + map_name + '.lua'
+script_foler = "script"
+
+with open(map_name_script,'w') as file:
+
+	if not os.path.exists(map_dirname):
+		os.mkdir(map_dirname)
+	file.write(state_template)
+print(f'The directory {map_dirname} is created\n')
+print(f'The file {map_name_script} is created\n')

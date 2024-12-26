@@ -13,7 +13,12 @@ echo -e "What is the name of main script for our NPC?\n"
 
 read MAIN_SCRIPT
 
-LUA_MAIN_SCRIPT="dofile(GetScriptPath()..\"$MAIN_SCRIPT.lua\")"
+FILE_EXT_LUA='.lua'
 
-echo "$LUA_MAIN_SCRIPT"
-# continue to work on that script
+LUA_MAIN_SCRIPT="dofile(GetScriptPath()..\"$MAIN_SCRIPT$FILE_EXT_LUA\")"
+
+for ((i = 1; i <= $NPC_COUNT; i++ ))
+do
+  echo "$LUA_MAIN_SCRIPT" >> "$NPC_FILENAME$i$FILE_EXT_LUA"
+  echo "$NPC_FILENAME$i$FILE_EXT_LUA is generated" 
+done
