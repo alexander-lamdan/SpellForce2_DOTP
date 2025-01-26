@@ -1,5 +1,5 @@
 <?php
-#!/usr/bin/env php8.2
+#!/usr/bin/env php
 function main(){
 	
 	generateNpcs();
@@ -11,49 +11,48 @@ function generateNpcs(){
 	
 	$npcName = (string)readline("What is the name of your npc that you create in editor? ");
   $npcCount = (int)readline("How much npc your created in the map? ");
-  $mainScriptSpawn = (string)readline("Enter the main script filename that will be in the npc file you generate: ");
-  $counter = 1;
-  $luaCommand = "dofile(GetScriptPath()..\"$mainScriptSpawn.lua\")";
+  $mainScriptName = (string)readline("Enter the main script filename that will be in the npc file you generate: ");
+  $luaCommand = "dofile(GetScriptPath()..\"$mainScriptName.lua\")";
 	$luaFunction = (string)readline("Enter the lua function you need ");
 	
-	$stateTemplateLua = <<<STRING
+		$stateNpcTemplate = <<<STRING
 State
 {
-	StateName = INIT,
-
-	OnOneTimeEvent
+	StateName = "INIT",
+	OnFigureRespawnEvent
 	{
+		WaitTime = 10,
+		X = 119,
+		Y = 103,
 		Conditions =
 		{
-	    	-- fill_me
 		},
 		Actions =
 		{
-
-		},
-		GotoState = MAIN,
-	},
-};
-
-State
-{
-	StateName = MAIN,
-
-	OnOneTimeEvent
-	{
-		Conditions =
-		{
-		    -- fill_me
-		},
-		Actions =
-		{
-            -- fill_me
 		},
 	},
-
-};
+}
 STRING;
-
-echo $stateTemplateLua;
+	
+  $counter = 1;
+	$mainScriptFile = fopen($mainScriptName.'.lua','w+');
+	fwrite($mainScriptFile,$stateNpcTemplate);
+	fclose($mainScriptFile);
+	
+	$folders = glob('./*',GLOB_ONLYDIR);
+	rename(basename($mainScriptName.'.lua'),$folders[2].'/script/'.$mainScriptName.'.lua');
+  
+	for($counter; $counter <= $npcCount;$counter++){
+		
+		$npcScript = $npcName.$counter.'.lua';
+		
+		$npcFile = fopen($npcScript,'w+');
+		
+		fwrite($npcFile,$luaCommand);
+		fclose($npcFile);
+		
+		rename(basename($npcScript),$folders[2].'/script/'.$npcScript);
+		
+	}
 	
 }
