@@ -5,7 +5,7 @@ import pathlib
 print("Hey, this is script generator for SpellForce Lua Scripts if you're trying to modding your units in editor, and you don't wan't to write a lot of copy-paste code. This script is best offer for lazy ass like me :D\n\n")
 
 npc_map_name = input("What is the name of your npc that you create in editor?\n")
-npc_count = int(input("How much npc your created in the map?\n"))
+npc_count = int(input("How much npc you created in the map?\n"))
 main_script = input("Enter the main script filename that will be in the npc file you generate:\n")
 counter = 0
 lua_command = f'dofile(GetScriptPath().."{main_script}.lua")'

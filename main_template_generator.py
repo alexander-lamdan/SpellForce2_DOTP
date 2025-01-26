@@ -48,11 +48,5 @@ map_dirname = p + map_name
 
 map_name_script = '_' + p + map_name + '.lua'
 script_foler = "script"
-
-with open(map_name_script,'w') as file:
-
-	if not os.path.exists(map_dirname):
-		os.mkdir(map_dirname)
-	file.write(state_template)
-print(f'The directory {map_dirname} is created\n')
-print(f'The file {map_name_script} is created\n')
+print(f'{map_dirname}\n')
+print(f'{map_name_script}')
