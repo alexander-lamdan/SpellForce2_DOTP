@@ -7,7 +7,7 @@ import pathlib
 import os
 
 map_name = input("Please enter the map name you need\n")
-state_template = '''State
+map_state_template = '''State
 {
 	StateName = "INIT",
 
@@ -47,6 +47,6 @@ p = 'p'
 map_dirname = p + map_name
 
 map_name_script = '_' + p + map_name + '.lua'
-script_foler = "script"
+script_folder = "script/"
 print(f'{map_dirname}\n')
 print(f'{map_name_script}')
