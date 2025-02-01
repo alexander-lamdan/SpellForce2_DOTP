@@ -1,24 +1,72 @@
 #!/usr/bin/env bash
-echo -e "Hey, this is script generator for SpellForce Lua Scripts if you're trying to modding your units in editor, and you don't wan't to write a lot of copy-paste code. This script is best offer for lazy ass like me :D\n\n"
 
-echo -e "Please enter the npc name that you created in the map editor\n"
+generate_npc () {
 
-read NPC_FILENAME
+  echo "What is the name of your npc that you created in editor?  "
+  read NPC_NAME
 
-echo -e "How much NPC's you created in the map that need to be spawned?\n"
+  echo "How much NPC's you created in the map?  "
+  read NPC_COUNT
 
-read NPC_COUNT
+  echo "What is the name of main script?  "
+  read MAIN_SPAWN_NAME
 
-echo -e "What is the name of main script for our NPC?\n"
+  SPAWN_SCRIPT="$MAIN_SPAWN_NAME.lua"
 
-read MAIN_SCRIPT
+  LUA_COMMAND="dofile(GetScriptPath()..\"$SPAWN_SCRIPT\")"
 
-FILE_EXT_LUA='.lua'
+  touch "$SPAWN_SCRIPT"
 
-LUA_MAIN_SCRIPT="dofile(GetScriptPath()..\"$MAIN_SCRIPT$FILE_EXT_LUA\")"
+  STATE_NPC_TEMPLATE='State
+{
+	StateName = "INIT",
+	OnFigureRespawnEvent
+	{
+		WaitTime = 10,
+		X = 119,
+		Y = 103,
+		Conditions =
+		{
+		},
+		Actions =
+		{
+		},
+	},
+}'
 
-for ((i = 1; i <= $NPC_COUNT; i++ ))
-do
-  echo "$LUA_MAIN_SCRIPT" >> "$NPC_FILENAME$i$FILE_EXT_LUA"
-  echo "$NPC_FILENAME$i$FILE_EXT_LUA is generated" 
-done
+echo "$STATE_NPC_TEMPLATE" > "$SPAWN_SCRIPT"
+
+  for ((i = 1; i <= $NPC_COUNT; i++ ))
+	  do
+		  echo "$LUA_COMMAND" >> "$NPC_NAME$i.lua"
+      echo "$NPC_NAME$i.lua is generated"
+  done
+
+}
+generate_npc
+
+generate_npc_actions () {
+
+  echo -e "Enter the lua function you need for your npc's "
+	read SPELLFORCE_FUNCTION
+  
+  echo -e "How much NPC's you created in the map? "
+  read NPC_COUNT
+
+  echo -e "Enter your currect npc name tag from the map "
+  read TAG_NAME
+
+  echo -e "Insert the X value "
+  read X_VALUE
+
+  echo -e "Insert the Y value "
+  read Y_VALUE
+
+	for ((i = 1; i <= $NPC_COUNT; i++ ))
+	  do
+		  echo "$SPELLFORCE_FUNCTION{Tag=\"$TAG_NAME$i\", X = $X_VALUE, Y = $Y_VALUE},"
+  done
+
+}
+
+generate_npc_actions

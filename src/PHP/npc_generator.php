@@ -72,7 +72,7 @@ function generateNpcActions(){
 	
 	$luaFunction = (string)readline("Enter the lua function you need for your npc's ");
 	$npcCount = (int)readline("How much npc your created in the map? ");
-	$tagNameNpc = (string)readline("Enter your currect npc name from the map ");
+	$tagNameNpc = (string)readline("Enter your currect npc name tag from the map ");
 	$xValue = (int) readline("Insert the X value ");
 	$yValue = (int) readline("Insert the Y value ");
 	$counter = 1;
