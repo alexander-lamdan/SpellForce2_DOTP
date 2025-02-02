@@ -5,9 +5,15 @@
 # I need to add more options for this
 import pathlib
 import os
+import shutil
 
-map_name = input("Please enter the map name you need\n")
-map_state_template = '''State
+def generateMapScript():
+  map_name = input("Please enter the map name you need\n")
+  script_folder = 'script'
+  p = 'p'
+  map_folder_name = p + map_name
+  main_map_script = '_'+ p + map_name + '.lua'
+  map_state_template = '''State
 {
 	StateName = "INIT",
 
@@ -43,10 +49,12 @@ State
 
 };\n
 '''
-p = 'p'
-map_dirname = p + map_name
-
-map_name_script = '_' + p + map_name + '.lua'
-script_folder = "script/"
-print(f'{map_dirname}\n')
-print(f'{map_name_script}')
+  os.makedirs(f'{map_folder_name}/{script_folder}')
+  
+  f = open(main_map_script,'w')
+  f.write(map_state_template)
+  f.close()
+  
+  shutil.move(os.path.basename(main_map_script),f'{map_folder_name}/{script_folder}')
+  
+generateMapScript()
