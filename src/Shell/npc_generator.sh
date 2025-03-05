@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 generate_npc () {
 
   echo "What is the name of your npc that you created in editor?  "
@@ -34,14 +33,14 @@ generate_npc () {
 	},
 }'
 
-echo "$STATE_NPC_TEMPLATE" > "$SPAWN_SCRIPT"
+  echo "$STATE_NPC_TEMPLATE" > "$SPAWN_SCRIPT"
 
   for ((i = 1; i <= $NPC_COUNT; i++ ))
 	  do
 		  echo "$LUA_COMMAND" >> "$NPC_NAME$i.lua"
       echo "$NPC_NAME$i.lua is generated"
   done
-
+  
 }
 generate_npc
 
@@ -64,9 +63,10 @@ generate_npc_actions () {
 
 	for ((i = 1; i <= $NPC_COUNT; i++ ))
 	  do
-		  echo "$SPELLFORCE_FUNCTION{Tag=\"$TAG_NAME$i\", X = $X_VALUE, Y = $Y_VALUE},"
+		  echo "$SPELLFORCE_FUNCTION{Tag=\"$TAG_NAME$i\", X = $X_VALUE, Y = $Y_VALUE}," >> npc_actions.txt
   done
-
+  exit
+  
 }
 
 generate_npc_actions

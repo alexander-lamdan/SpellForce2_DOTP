@@ -41,13 +41,16 @@ def generateNpc():
 generateNpc()
 
 def generateNpcActions():
+	
   spellForce2_actions = input("Enter the lua function you need for your npc's ")
-  npc_count = int(input("How much npc you created in the map?\n"))
+  npc_count = int(input("How much npc you created in the map? "))
   tag_npc_name = input("Enter your currect npc name tag from the map ")
   x_value = input("Insert the X value ")
-  y_value = input("Insert the X value ")
+  y_value = input("Insert the Y value ")
   counter = 0
   
   for counter in range(npc_count):
+		
     print(spellForce2_actions + '{Tag="'+tag_npc_name + f'{counter + 1}' + '",X=' + x_value + ',Y='+y_value + '},')
+
 generateNpcActions()
